@@ -1,16 +1,20 @@
 import React from "react"
 
 interface DescriptionTextProps {
-  className?: string
+  className?: string; // Definição da interface
 }
 
 export default function DescriptionText({ className }: DescriptionTextProps) {
   return (
-    <div className={`mb-4 text-sm text-gray-600  ${className}`}>
+    <div className={`mb-4 ml-5 text-sm text-primary ${className}`}>
+      {/* Texto "Calculadora de Benefícios JG" em azul, negrito e tamanho h4 */}
+      <h4 className="text-blue-700 font-bold text-lg mb-2">
+        Calculadora de Benefícios JG
+      </h4>
+      {/* Texto "Compare preços..." */}
       <p>
-        Escolha os tipos e tamanhos das cervejas para calcular o melhor custo-benefício. 
-        Compare os preços e descubra qual cerveja oferece o maior valor por litro!
+        Compare preços de diferentes tamanhos de cerveja e descubra a melhor opção de custo-benefício para o seu bolso.
       </p>
     </div>
-  )
+  );
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { Beer, Trophy } from "lucide-react"
+import { Beer, Trophy, Info, ArrowUp, HelpCircle, ArrowUpDown } from "lucide-react"
 import type { DrinkWithValue } from "@/lib/types"
 import {
   Dialog,
@@ -28,56 +28,89 @@ export default function ResultsModal({ isOpen, onClose, drinks, bestValue }: Res
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Trophy className="h-5 w-5 text-yellow-500" />
-            Resultados da Comparação
+            Resultado da Análise
           </DialogTitle>
-          <DialogDescription>Comparação de custo-benefício entre as bebidas</DialogDescription>
+          <DialogDescription>Compare os preços e encontre a melhor opção</DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-3 my-4 max-h-[60vh] overflow-y-auto pr-1">
-          {drinks.map((drink) => {
-            const isBest = bestValue && drink.id === bestValue.id
-
-            return (
-              <div
-                key={drink.id}
-                className={`p-3 rounded-lg flex items-center gap-3 ${
-                  isBest
-                    ? "bg-gradient-to-r from-blue-100 to-blue-200 border border-blue-300"
-                    : "bg-gray-50 border border-gray-200"
-                }`}
-              >
-                <div className={`p-2 rounded-full ${isBest ? "bg-blue-500" : "bg-gray-300"}`}>
-                  <Beer className={`h-5 w-5 ${isBest ? "text-white" : "text-gray-600"}`} />
-                </div>
-
-                <div className="flex-1">
-                  <div className="text-sm text-gray-600">
-                    {drink.containerType}: {drink.volume}ml por R${drink.price.toFixed(2)}
-                  </div>
-                </div>
-
-                <div className="text-right">
-                  <div className={`font-bold ${isBest ? "text-blue-700" : "text-gray-700"}`}>
-                    R${drink.costPerLiter.toFixed(2)}/L
-                  </div>
-                  {isBest && <div className="text-xs text-blue-600 font-medium">Melhor opção!</div>}
+        <div className="space-y-4 my-4 max-h-[60vh] overflow-y-auto pr-1">
+          {bestValue && (
+            <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+              <div className="flex items-center gap-2">
+                <ArrowUpDown className="h-5 w-5 text-green-600" /> {/* Ícone de preço caindo */}
+                <h3 className="font-bold text-green-800">Melhor Custo-Benefício</h3>
+              </div>
+              <div className="mt-2">
+                <p className="text-lg font-semibold text-green-700">{bestValue.volume}ml</p>
+                <p className="text-sm text-green-700">R$ {bestValue.price.toFixed(2)} por unidade</p>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="text-sm text-green-700">Preço por litro:</span>
+                  <span className="text-sm font-semibold text-green-700">
+                    R$ {bestValue.costPerLiter.toFixed(2)}
+                  </span>
                 </div>
               </div>
-            )
-          })}
-        </div>
+            </div>
+          )}
 
-        {bestValue && (
-          <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-            <h3 className="font-bold text-blue-800 mb-1">Melhor Custo-Benefício:</h3>
-            <p className="text-blue-700">
-              <strong>{bestValue.containerType}</strong> ({bestValue.volume}ml) por R${bestValue.price.toFixed(2)}
-            </p>
-            <p className="text-sm text-blue-600 mt-1">
-              Custo por litro: <strong>R${bestValue.costPerLiter.toFixed(2)}</strong>
-            </p>
+          <div className="space-y-3">
+            <h3 className="font-bold text-blue-800">Comparação Detalhada</h3>
+            {drinks.map((drink, index) => {
+              const isBest = bestValue && drink.id === bestValue.id
+              const difference = bestValue ? drink.costPerLiter - bestValue.costPerLiter : 0
+              const percentage = bestValue ? ((difference / bestValue.costPerLiter) * 100).toFixed(0) : 0
+
+              return (
+                <div
+                  key={drink.id}
+                  className={`p-4 rounded-lg flex flex-col gap-2 ${
+                    isBest
+                      ? "bg-gradient-to-r from-green-100 to-green-200 border border-green-300"
+                      : "bg-gray-50 border border-gray-200"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-medium text-gray-700">{index + 1}º</span>
+                      <span className="text-sm font-semibold">{drink.volume}ml</span>
+                    </div>
+                    <span className="text-sm text-gray-700">R$ {drink.price.toFixed(2)}</span>
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    Preço por litro: <strong>R$ {drink.costPerLiter.toFixed(2)}</strong>
+                  </div>
+                  {!isBest && (
+                    <div className="flex items-center gap-2 text-sm text-red-600">
+                      <ArrowUp className="h-4 w-4 text-red-600" />
+                      <span>
+                        Economia: R$ {difference.toFixed(2)} por litro ({percentage}% mais caro que a melhor opção)
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
-        )}
+
+          <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+          <div className="flex items-start gap-2">
+  {/* Ícone de ajuda (círculo com interrogação) */}
+  <HelpCircle className="h-4 w-4 text-blue-600 mt-1 flex-shrink-0" /> {/* Tamanho ajustado e flex-shrink-0 para evitar distorção */}
+  <div className="flex flex-col">
+    <div className="flex items-center gap-2"> {/* Container para ícone e texto "Como entender este cálculo?" */}
+      <span className="text-sm text-blue-700">
+        Como entender este cálculo?
+      </span>
+    </div>
+    <span className="text-sm text-gray-600 mt-1">
+      As economias mostradas representam quanto você economiza por litro ao escolher a melhor opção (275ml) em vez de cada uma das outras opções.
+    </span>
+  </div>
+</div>
+        </div>
+    </div>
+        </div>
 
         <DialogFooter className="sm:justify-center">
           <Button onClick={onClose} className="w-full">
@@ -88,4 +121,3 @@ export default function ResultsModal({ isOpen, onClose, drinks, bestValue }: Res
     </Dialog>
   )
 }
-

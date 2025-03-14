@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "dev": "nodemon --watch pages --exec \"next dev\""
-
+    "dev": "next dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
