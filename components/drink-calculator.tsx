@@ -166,6 +166,9 @@ export default function DrinkCalculator() {
               </Button>
             </div>
           </div>
+          <footer className="text-center p-3 text-gray-600 mt-5">
+            Desenvolvido por <span className="font-semibold">Fabiano Lira</span>
+          </footer>
         </CardContent>
       </Card>
 
