@@ -92,24 +92,23 @@ export default function ResultsModal({ isOpen, onClose, drinks, bestValue }: Res
             })}
           </div>
 
+          {/* Seção de "Como entender este cálculo?" */}
           <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <div className="flex items-start gap-2">
-  {/* Ícone de ajuda (círculo com interrogação) */}
-  <HelpCircle className="h-4 w-4 text-blue-600 mt-1 flex-shrink-0" /> {/* Tamanho ajustado e flex-shrink-0 para evitar distorção */}
-  <div className="flex flex-col">
-    <div className="flex items-center gap-2"> {/* Container para ícone e texto "Como entender este cálculo?" */}
-      <span className="text-sm text-blue-700">
-        Como entender este cálculo?
-      </span>
-    </div>
-    <span className="text-sm text-gray-600 mt-1">
-      As economias mostradas representam quanto você economiza por litro ao escolher a melhor opção (275ml) em vez de cada uma das outras opções.
-    </span>
-  </div>
-</div>
-        </div>
-    </div>
+            <div className="flex items-start gap-2">
+              {/* Ícone de ajuda (círculo com interrogação) */}
+              <HelpCircle className="h-5 w-5 text-blue-600 flex-shrink-0" /> {/* Ícone ao lado do texto */}
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2"> {/* Container para ícone e texto "Como entender este cálculo?" */}
+                  <span className="text-sm text-blue-700">
+                    Como entender este cálculo?
+                  </span>
+                </div>
+                <span className="text-sm text-gray-600 mt-1">
+                  As economias mostradas representam quanto você economiza por litro ao escolher a melhor opção (275ml) em vez de cada uma das outras opções.
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <DialogFooter className="sm:justify-center">
