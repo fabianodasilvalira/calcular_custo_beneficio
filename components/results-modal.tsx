@@ -83,7 +83,7 @@ export default function ResultsModal({ isOpen, onClose, drinks, bestValue }: Res
                     <div className="flex items-center gap-2 text-sm text-red-600">
                       <ArrowUp className="h-4 w-4 text-red-600" />
                       <span>
-                        Economia: R$ {difference.toFixed(2)} por litro ({percentage}% mais caro que a melhor opção)
+                        Gasto: R$ {difference.toFixed(2)} por litro ({percentage}% mais caro que a melhor opção)
                       </span>
                     </div>
                   )}
